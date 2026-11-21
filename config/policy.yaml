@@ -1,0 +1,41 @@
+# Who may read what. Deny by default: a role sees a table only if a pattern below matches.
+# Nobody is granted hr.*, so no agent role can read salaries.
+#
+# Patterns are globs on schema.table (tables, row_filters) and schema.table.column (masks).
+# Masks: redact ('***'), hash (salted, stable, joinable), null, email_domain (keeps @domain).
+# The first matching mask wins.
+
+defaults:
+  max_rows: 200
+  timeout_seconds: 5
+  max_cell_chars: 500
+
+roles:
+  analyst:
+    description: Business analysis on curated tables. No direct identifiers.
+    tables: ["marts.*", "staging.*"]
+    masks:
+      "*.email": email_domain
+      "*.phone": redact
+      "*.full_name": hash
+
+  support_de:
+    description: Customer support for Germany. Sees names and emails, for German customers only.
+    tables: ["marts.dim_customers", "marts.fct_orders"]
+    masks:
+      "*.phone": redact
+    row_filters:
+      "marts.dim_customers": "country = 'DE'"
+      "marts.fct_orders": "customer_id in (select customer_id from src.marts.dim_customers where country = 'DE')"
+    limits:
+      max_rows: 50
+
+  engineer:
+    description: Pipeline debugging across raw, staging and marts. Contact details stay masked.
+    tables: ["raw.*", "staging.*", "marts.*"]
+    masks:
+      "*.email": hash
+      "*.phone": redact
+    limits:
+      max_rows: 1000
+      timeout_seconds: 15

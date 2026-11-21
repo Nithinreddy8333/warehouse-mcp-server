@@ -1,0 +1,946 @@
+{
+  "run_at": "2026-11-21T08:52:05+00:00",
+  "summary": {
+    "attacks": 71,
+    "attacks_denied": 71,
+    "sql_attacks_rerun_without_guard": 66,
+    "stopped_by_engine_without_guard": 55,
+    "ran_without_guard_but_harmless": 11,
+    "probes": 11,
+    "probes_passed": 11,
+    "legitimate": 21,
+    "legitimate_allowed": 21,
+    "responses_with_leaked_values": 0,
+    "cases_that_modified_data": 0,
+    "files_written_outside": 0
+  },
+  "results": [
+    {
+      "group": "attacks",
+      "name": "forbidden table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "forbidden table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "forbidden table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "forbidden schema for this role",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "source catalog qualifier",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "memory catalog qualifier",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "forbidden table in a union",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "forbidden table in a scalar subquery",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "forbidden table inside a CTE",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "forbidden table in a join",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "information_schema",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "information_schema columns",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "query_table function",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "query function",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "duckdb_tables metadata",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "duckdb_databases metadata",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "duckdb_settings metadata",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "pragma_table_info function",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "duckdb_secrets",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "read_csv on a system file",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "read_text on a system file",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "read the warehouse file directly",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "glob the filesystem",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "file path as a table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "parquet over http",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "read_json",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "copy to a file",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "copy query to a file",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "copy from a file",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "export database",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "attach the warehouse",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "install extension",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "load extension",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "drop table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "delete",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "update",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "insert",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "create table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "create view",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "alter table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "truncate",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "data-modifying CTE that the engine classifies as SELECT",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "insert hidden in a CTE",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "update hidden in a CTE",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (read_only)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "second statement",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (multiple_statements)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "second statement after a block comment",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (multiple_statements)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "second statement after a line comment",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (multiple_statements)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "commit then write",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (multiple_statements)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "rollback then begin",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (multiple_statements)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "re-enable external access",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "unlock configuration",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "reset setting",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "pragma",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "call",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "use another catalog",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "checkpoint",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "explain analyze",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "prepare",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "describe forbidden table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "show tables",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "summarize forbidden table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "create secret",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "runaway cross join",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (timeout)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "oversized query text",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "ran, harmless",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "describe a forbidden table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "lineage of a forbidden table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "quality checks on a forbidden table",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "SQL injection through a table argument",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "injection through a table argument with a subquery",
+      "role": "analyst",
+      "verdict": "denied",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "support role reads a table only analysts have",
+      "role": "support_de",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "attacks",
+      "name": "support role reads staging",
+      "role": "support_de",
+      "verdict": "denied",
+      "engine_without_guard": "stopped (sql_error)",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "masked email prefix search finds nothing",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "masked email substring",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "phone is fully redacted",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "unsalted hash guess does not match",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "masked values through staging",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "order by masked column",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "row cap is enforced",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "row filter hides other countries",
+      "role": "support_de",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "row filter applies to all rows returned",
+      "role": "support_de",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "filtered orders belong to visible customers only",
+      "role": "support_de",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "probes",
+      "name": "engineer sees raw with masked contacts",
+      "role": "engineer",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "whoami",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "list tables",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "describe table",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "lineage",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "quality checks for one table",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "all quality checks",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "count",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "aggregate",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "join",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "CTE",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "window function",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "subquery",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "generated series",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "unnest",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "FROM-first syntax",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "trailing semicolon",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "comment inside a query",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "string that looks like SQL",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "column named like a keyword",
+      "role": "analyst",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "support role reads its customers",
+      "role": "support_de",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    },
+    {
+      "group": "legitimate",
+      "name": "engineer reads raw",
+      "role": "engineer",
+      "verdict": "allowed",
+      "engine_without_guard": "n/a",
+      "ok": true,
+      "problems": []
+    }
+  ]
+}

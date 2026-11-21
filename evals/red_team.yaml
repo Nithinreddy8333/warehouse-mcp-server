@@ -1,0 +1,140 @@
+# Red-team suite. Every case is sent through a real MCP client to a server running as `role`.
+#   expect: denied   the call must come back as a tool error
+#   expect: allowed  the call must succeed (optionally with `max_rows` or `rows` assertions)
+# Independently of the verdict, no response may contain data the role is not allowed to see.
+
+attacks:
+  # ---- reading tables outside the role ----------------------------------------------------
+  - {name: forbidden table, sql: "select * from hr.salaries"}
+  - {name: forbidden table, upper case, sql: "SELECT * FROM HR.SALARIES"}
+  - {name: forbidden table, quoted, sql: 'select * from "hr"."salaries"'}
+  - {name: forbidden schema for this role, sql: "select email from raw.customers"}
+  - {name: source catalog qualifier, sql: "select * from src.hr.salaries"}
+  - {name: memory catalog qualifier, sql: "select * from memory.hr.salaries"}
+  - {name: forbidden table in a union, sql: "select 1 union all select salary from hr.salaries"}
+  - {name: forbidden table in a scalar subquery, sql: "select (select max(salary) from hr.salaries)"}
+  - {name: forbidden table inside a CTE, sql: "with s as (select * from hr.salaries) select * from s"}
+  - {name: forbidden table in a join, sql: "select * from marts.fct_orders o join hr.salaries s on true"}
+  - {name: information_schema, sql: "select * from information_schema.tables"}
+  - {name: information_schema columns, sql: "select * from information_schema.columns where table_schema = 'hr'"}
+  # ---- reading data by name through functions ---------------------------------------------
+  - {name: query_table function, sql: "select * from query_table('hr.salaries')"}
+  - {name: query function, sql: "select * from query('select * from hr.salaries')"}
+  - {name: duckdb_tables metadata, sql: "select * from duckdb_tables()"}
+  - {name: duckdb_databases metadata, sql: "select * from duckdb_databases()"}
+  - {name: duckdb_settings metadata, sql: "select * from duckdb_settings()"}
+  - {name: pragma_table_info function, sql: "select * from pragma_table_info('hr.salaries')"}
+  - {name: duckdb_secrets, sql: "select * from duckdb_secrets()"}
+  # ---- files and network ------------------------------------------------------------------
+  - {name: read_csv on a system file, sql: "select * from read_csv('/etc/passwd')"}
+  - {name: read_text on a system file, sql: "select * from read_text('/etc/hostname')"}
+  - {name: read the warehouse file directly, sql: "select * from read_blob('warehouse/warehouse.duckdb')"}
+  - {name: glob the filesystem, sql: "select * from glob('/etc/*')"}
+  - {name: file path as a table, sql: "select * from '/etc/passwd'"}
+  - {name: parquet over http, sql: "select * from read_parquet('https://example.com/x.parquet')"}
+  - {name: read_json, sql: "select * from read_json('/tmp/x.json')"}
+  - {name: copy to a file, sql: "copy marts.fct_orders to '/tmp/exfil.csv'"}
+  - {name: copy query to a file, sql: "copy (select * from marts.dim_customers) to '/tmp/exfil.csv'"}
+  - {name: copy from a file, sql: "copy marts.fct_orders from '/tmp/x.csv'"}
+  - {name: export database, sql: "export database '/tmp/exfil'"}
+  - {name: attach the warehouse, sql: "attach 'warehouse/warehouse.duckdb' as w"}
+  - {name: install extension, sql: "install httpfs"}
+  - {name: load extension, sql: "load httpfs"}
+  # ---- writing ----------------------------------------------------------------------------
+  - {name: drop table, sql: "drop table marts.fct_orders"}
+  - {name: delete, sql: "delete from marts.fct_orders"}
+  - {name: update, sql: "update marts.fct_orders set amount = 0"}
+  - {name: insert, sql: "insert into marts.fct_orders select * from marts.fct_orders"}
+  - {name: create table, sql: "create table marts.x as select 1"}
+  - {name: create view, sql: "create view marts.v as select * from marts.fct_orders"}
+  - {name: alter table, sql: "alter table marts.fct_orders add column x int"}
+  - {name: truncate, sql: "truncate marts.fct_orders"}
+  - name: data-modifying CTE that the engine classifies as SELECT
+    sql: "with d as (delete from marts.fct_orders returning *) select count(*) from d"
+  - name: insert hidden in a CTE
+    sql: "with i as (insert into marts.fct_orders select * from marts.fct_orders returning *) select count(*) from i"
+  - name: update hidden in a CTE
+    sql: "with u as (update marts.fct_orders set amount = 0 returning *) select count(*) from u"
+  # ---- more than one statement, and comment tricks ----------------------------------------
+  - {name: second statement, sql: "select 1; drop table marts.fct_orders"}
+  - {name: second statement after a block comment, sql: "select 1 /* harmless */; delete from marts.fct_orders"}
+  - {name: second statement after a line comment, sql: "select 1 -- note\n; drop table marts.fct_orders"}
+  - {name: commit then write, sql: "commit; delete from marts.fct_orders"}
+  - {name: rollback then begin, sql: "rollback; begin; delete from marts.fct_orders; commit"}
+  # ---- configuration and session ----------------------------------------------------------
+  - {name: re-enable external access, sql: "set enable_external_access = true"}
+  - {name: unlock configuration, sql: "set lock_configuration = false"}
+  - {name: reset setting, sql: "reset enable_external_access"}
+  - {name: pragma, sql: "pragma database_list"}
+  - {name: call, sql: "call pragma_version()"}
+  - {name: use another catalog, sql: "use src"}
+  - {name: checkpoint, sql: "checkpoint"}
+  - {name: explain analyze, sql: "explain analyze select * from marts.fct_orders"}
+  - {name: prepare, sql: "prepare p as select * from hr.salaries"}
+  - {name: describe forbidden table, sql: "describe hr.salaries"}
+  - {name: show tables, sql: "show all tables"}
+  - {name: summarize forbidden table, sql: "summarize hr.salaries"}
+  - {name: create secret, sql: "create secret s (type s3, key_id 'a', secret 'b')"}
+  # ---- resource exhaustion ----------------------------------------------------------------
+  - name: runaway cross join
+    sql: "select count(*) from range(100000000000) a, range(1000) b"
+    expect_code: timeout
+  - {name: oversized query text, sql_repeat: {text: "select 1 union all ", times: 2000, tail: "select 1"}}
+  # ---- tool arguments ---------------------------------------------------------------------
+  - {name: describe a forbidden table, tool: describe_table, args: {table: "hr.salaries"}}
+  - {name: lineage of a forbidden table, tool: get_lineage, args: {table: "hr.salaries"}}
+  - {name: quality checks on a forbidden table, tool: run_quality_checks, args: {table: "hr.salaries"}}
+  - name: SQL injection through a table argument
+    tool: describe_table
+    args: {table: 'marts.fct_orders"; drop table marts.fct_orders; --'}
+  - name: injection through a table argument with a subquery
+    tool: describe_table
+    args: {table: "marts.fct_orders union select * from hr.salaries"}
+  - {name: support role reads a table only analysts have, role: support_de, sql: "select * from marts.daily_revenue"}
+  - {name: support role reads staging, role: support_de, sql: "select email from staging.stg_customers"}
+
+# Allowed queries that probe masking and row filters. They must run, and must not leak.
+probes:
+  - {name: masked email prefix search finds nothing, sql: "select count(*) as n from marts.dim_customers where email like 'zzcanary%'", rows: [{n: 0}]}
+  - {name: masked email substring, sql: "select distinct substr(email, 1, 8) as p from marts.dim_customers"}
+  - {name: phone is fully redacted, sql: "select count(distinct phone) as n from marts.dim_customers", rows: [{n: 1}]}
+  - name: unsalted hash guess does not match
+    sql: "select count(*) as n from marts.dim_customers where full_name = 'h_' || substr(sha256('Ava Patel'), 1, 12)"
+    rows: [{n: 0}]
+  - {name: masked values through staging, sql: "select email, phone, full_name from staging.stg_customers limit 50"}
+  - {name: order by masked column, sql: "select email, full_name from marts.dim_customers order by full_name limit 50"}
+  - {name: row cap is enforced, sql: "select * from marts.fct_orders", args: {max_rows: 100000}, max_rows: 200}
+  - name: row filter hides other countries
+    role: support_de
+    sql: "select count(*) as n from marts.dim_customers where country <> 'DE'"
+    rows: [{n: 0}]
+  - {name: row filter applies to all rows returned, role: support_de, sql: "select * from marts.dim_customers", max_rows: 50}
+  - name: filtered orders belong to visible customers only
+    role: support_de
+    sql: "select count(*) as n from marts.fct_orders where customer_id not in (select customer_id from marts.dim_customers)"
+    rows: [{n: 0}]
+  - {name: engineer sees raw with masked contacts, role: engineer, sql: "select email, phone from raw.customers limit 100"}
+
+# Ordinary work that must keep working.
+legitimate:
+  - {name: whoami, tool: whoami, args: {}}
+  - {name: list tables, tool: list_tables, args: {}}
+  - {name: describe table, tool: describe_table, args: {table: "marts.fct_orders"}}
+  - {name: lineage, tool: get_lineage, args: {table: "marts.dim_customers"}}
+  - {name: quality checks for one table, tool: run_quality_checks, args: {table: "marts.fct_orders"}}
+  - {name: all quality checks, tool: run_quality_checks, args: {}}
+  - {name: count, sql: "select count(*) from marts.fct_orders"}
+  - {name: aggregate, sql: "select category, sum(amount) as revenue from marts.fct_orders group by 1 order by 2 desc"}
+  - {name: join, sql: "select c.country, sum(o.amount) from marts.fct_orders o join marts.dim_customers c using (customer_id) group by 1"}
+  - {name: CTE, sql: "with m as (select date_trunc('month', order_date) as month, sum(revenue) as r from marts.daily_revenue group by 1) select * from m order by 1"}
+  - {name: window function, sql: "select order_date, revenue, sum(revenue) over (order by order_date) from marts.daily_revenue where category = 'books' order by 1 limit 20"}
+  - {name: subquery, sql: "select * from marts.dim_customers where lifetime_value > (select avg(lifetime_value) from marts.dim_customers) limit 10"}
+  - {name: generated series, sql: "select * from range(5)"}
+  - {name: unnest, sql: "select unnest([1, 2, 3]) as n"}
+  - {name: FROM-first syntax, sql: "from marts.fct_orders select status, count(*) group by all"}
+  - {name: trailing semicolon, sql: "select 1;"}
+  - {name: comment inside a query, sql: "select count(*) /* all orders */ from marts.fct_orders -- done"}
+  - {name: string that looks like SQL, sql: "select 'drop table x; delete from y' as text"}
+  - {name: column named like a keyword, sql: "select status as \"delete\" from marts.fct_orders limit 1"}
+  - {name: support role reads its customers, role: support_de, sql: "select full_name, email from marts.dim_customers limit 5"}
+  - {name: engineer reads raw, role: engineer, sql: "select count(*) from raw.orders"}

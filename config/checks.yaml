@@ -1,0 +1,11 @@
+- {table: marts.fct_orders, kind: unique, column: order_id}
+- {table: marts.fct_orders, kind: not_null, column: customer_id}
+- {table: marts.fct_orders, kind: non_negative, column: amount}
+- {table: marts.fct_orders, kind: accepted_values, column: status,
+   values: [placed, shipped, delivered, cancelled, returned]}
+- {table: marts.fct_orders, kind: max_age_days, column: order_date, value: 3}
+- {table: marts.dim_customers, kind: unique, column: customer_id}
+- {table: marts.dim_customers, kind: min_rows, value: 100}
+- {table: marts.daily_revenue, kind: non_negative, column: revenue}
+- {table: raw.orders, kind: not_null, column: order_id}
+- {table: hr.salaries, kind: min_rows, value: 1}
